@@ -9,4 +9,9 @@ impl GameState for State {
     }
 }
 
-fn main() {}
+fn main() -> BError {
+    let context = BTermBuilder::simple80x50()
+        .with_title("Rusty Corridors")
+        .build()?;
+    main_loop(context, State {})
+}
