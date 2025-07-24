@@ -9,18 +9,30 @@ mod prelude {
     pub use crate::map::*;
 }
 
-struct State {}
+use prelude::*;
+
+struct State {
+    map: Map,
+}
+
+impl State {
+    fn new() -> Self {
+        Self { map: Map::new() }
+    }
+}
 
 impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
         ctx.cls();
-        ctx.print(1, 1, "Hello, Bracket Terminal!");
+        self.map.render(ctx);
     }
 }
 
 fn main() -> BError {
     let context = BTermBuilder::simple80x50()
         .with_title("Rusty Corridors")
+        .with_fps_cap(30.0)
         .build()?;
-    main_loop(context, State {})
+
+    main_loop(context, State::new())
 }
