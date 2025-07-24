@@ -33,6 +33,16 @@ impl Map {
             }
         }
     }
+
+    // Checks that the location specified is within the bounds of the screen
+    pub fn in_bounds(&self, point: Point) -> bool {
+        point.x >= 0 && point.x < SCREEN_WIDTH && point.y >= 0 && point.y < SCREEN_HEIGHT
+    }
+
+    // Checks that a destination tile is valid (is on screen and is a floor tile)
+    pub fn can_enter_tile(&self, point: Point) -> bool {
+        self.in_bounds(point) && self.tiles[map_idx(point.x, point.y)] == TileType::Floor
+    }
 }
 
 // Calculates the tile index from x and y using row-first striding
