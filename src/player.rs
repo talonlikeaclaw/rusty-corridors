@@ -21,4 +21,25 @@ impl Player {
             to_cp437('@'),
         );
     }
+
+    // Updates the Player's delta depending on key input
+    pub fn update(&mut self, ctx: &mut BTerm, map: &Map) {
+        if let Some(key) = ctx.key {
+            // Determine attempted movement from keypress
+            let delta = match key {
+                VirtualKeyCode::Left => Point::new(-1, 0),
+                VirtualKeyCode::Right => Point::new(1, 0),
+                VirtualKeyCode::Up => Point::new(0, -1),
+                VirtualKeyCode::Down => Point::new(0, 1),
+                _ => Point::zero(), // No movement for other keys
+            };
+
+            let new_position = self.position + delta;
+
+            // Update position only if player can enter the tile
+            if map.can_enter_tile(new_position) {
+                self.position = new_position;
+            }
+        }
+    }
 }
