@@ -47,6 +47,15 @@ impl Map {
     pub fn can_enter_tile(&self, point: Point) -> bool {
         self.in_bounds(point) && self.tiles[map_idx(point.x, point.y)] == TileType::Floor
     }
+
+    // Checks if an coordinate is valid and return option with index or none
+    pub fn try_idx(&self, point: Point) -> Option<usize> {
+        if !self.in_bounds(point) {
+            None
+        } else {
+            Some(map_idx(point.x, point.y))
+        }
+    }
 }
 
 // Calculates the tile index from x and y using row-first striding
