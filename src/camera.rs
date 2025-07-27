@@ -18,4 +18,12 @@ impl Camera {
             bottom_y: player_position.y + DISPLAY_HEIGHT / 2,
         }
     }
+
+    // Enables camera to move depending on player position
+    pub fn on_player_move(&mut self, player_position: Point) {
+        self.left_x = player_position.x - DISPLAY_WIDTH / 2;
+        self.right_x = player_position.x + DISPLAY_WIDTH / 2;
+        self.top_y = player_position.y - DISPLAY_HEIGHT / 2;
+        self.bottom_y = player_position.y + DISPLAY_HEIGHT / 2;
+    }
 }
